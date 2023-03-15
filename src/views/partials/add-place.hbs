@@ -1,0 +1,24 @@
+<form class="box" action="/category/{{category._id}}/addplace" method="POST">
+  <label>Enter Place Details:</label>
+  <div class="field is-horizontal">
+    <div class="field-body">
+      <div class="field">
+        <input class="input" type="text" placeholder="Place Name" name="placename">
+      </div>
+      <div class="field">
+        <input class="input" type="text" placeholder="Latitude" name="latitude">
+      </div>
+      <div class="field">
+        <input class="input" type="text" placeholder="Longitude" name="longitude">
+      </div>
+    </div>
+  </div>
+  <div class="field is-horizontal">
+    <div class="field-body">
+      <div class="field">
+        <textarea class="textarea has-fixed-size" rows="4" placeholder="Description" name="description"></textarea>
+      </div>
+    </div>
+  </div>
+  <button class="button is-primary">Add Place</button>
+</form>

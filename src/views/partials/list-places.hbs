@@ -1,0 +1,25 @@
+<table class="table is-fullwidth">
+  <thead>
+    <tr>
+      <th>Place name</th>
+      <th>Location</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each category.places}}
+      <tr>
+        <td>
+          {{placename}}
+        </td>
+        <td>
+          Lat: {{latitude}}<br>
+          Lon: {{longitude}}
+        </td>
+        <td>
+          {{description}}
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
