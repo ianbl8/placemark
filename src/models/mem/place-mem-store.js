@@ -14,19 +14,15 @@ export const placeMemStore = {
     return place;
   },
 
-  async getPlacesByCategoryId(id) {
-    return places.filter((place) => place.categoryid === id);
+  async getPlacesByCategoryId(categoryId) {
+    return places.filter((place) => place.categoryid === categoryId);
   },
 
   async getPlaceById(id) {
     return places.find((place) => place._id === id);
   },
 
-  async getCategoryPlaces(categoryId) {
-    return places.filter((place) => place.categoryid === categoryId);
-  },
-
-  async deletePlace(id) {
+  async deletePlaceById(id) {
     const index = places.findIndex((place) => place._id === id);
     places.splice(index, 1);
   },
@@ -39,6 +35,6 @@ export const placeMemStore = {
     place.placename = updatedPlace.placename;
     place.longitude = updatedPlace.longitude;
     place.latitude = updatedPlace.latitude;
-    place.dsecription = updatedPlace.description;
+    place.description = updatedPlace.description;
   },
 };
