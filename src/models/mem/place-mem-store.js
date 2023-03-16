@@ -1,6 +1,4 @@
 import { v4 } from "uuid";
-// eslint-disable-next-line import/no-cycle
-import { categoryMemStore } from "./category-mem-store.js";
 
 let places = [];
 
@@ -10,10 +8,8 @@ export const placeMemStore = {
   },
 
   async addPlace(categoryId, place) {
-    const category = await categoryMemStore.getCategoryById(categoryId);
     place._id = v4();
-    place.categoryid = category._id;
-    place.categorytitle = category.title;
+    place.categoryid = categoryId;
     places.push(place);
     return place;
   },
@@ -40,14 +36,5 @@ export const placeMemStore = {
     place.longitude = updatedPlace.longitude;
     place.latitude = updatedPlace.latitude;
     place.description = updatedPlace.description;
-    /*
-    Possible updating of category, eg change from one to another:
-    List categories in a drop-down box for selection if updating?
-    Implement if useful, or remove if not.
-
-    const category = await categoryMemStore.getCategoryByTitle(updatedPlace.categorytitle);
-    place.categoryid = category._id;
-    place.categorytitle = category.title;
-    */
   },
 };
