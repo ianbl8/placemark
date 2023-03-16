@@ -5,6 +5,7 @@
       <th>Location</th>
       <th>Description</th>
       <th>Category</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -22,6 +23,11 @@
         </td>
         <td>
           {{categorytitle}}
+        </td>
+        <td>
+          <a href="/category/{{../category._id}}/deleteplace/{{_id}}" class="ui icon button">
+            <i class="fas fa-trash"></i>
+          </a>
         </td>
       </tr>
     {{/each}}
