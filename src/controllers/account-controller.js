@@ -55,8 +55,8 @@ export const accountController = {
   async validate(request, session) {
     const user = await db.userStore.getUserById(session.id);
     if (!user) {
-      return { valid: false };
+      return { isValid: false };
     }
-    return { valid: true, credentials: user };
+    return { isValid: true, credentials: user };
   },
 };
