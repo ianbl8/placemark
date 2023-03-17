@@ -40,13 +40,7 @@ export const placeMemStore = {
     place.longitude = updatedPlace.longitude;
     place.latitude = updatedPlace.latitude;
     place.description = updatedPlace.description;
-     /*
-    Possible updating of category, eg change from one to another:
-    List categories in a drop-down box for selection if updating?
-    
-    const category = await categoryMemStore.getCategoryByTitle(updatedPlace.categorytitle);
-    place.categoryid = category._id;
-    place.categorytitle = category.title;
-    */
+    place.categoryid = updatedPlace.categoryid;
+    place.categorytitle = updatedPlace.categorytitle;
   },
 };

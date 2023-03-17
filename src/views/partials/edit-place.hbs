@@ -1,0 +1,46 @@
+<form class="box" action="/category/{{category._id}}/updateplace/{{place._id}}" method="POST">
+  <label class="label">Place details</label>
+  <div class="field is-horizontal">
+    <div class="field-body">
+      <div class="field">
+        <label>Place name</label>
+        <input class="input" type="text" value="{{place.placename}}" name="placename">
+      </div>
+      <div class="field">
+        <label>Latitude</label>
+        <input class="input" type="text" value="{{place.latitude}}" name="latitude">
+      </div>
+      <div class="field">
+        <label>Longitude</label>
+        <input class="input" type="text" value="{{place.longitude}}" name="longitude">
+      </div>
+      <div class="field">
+        <label>Category</label><br>
+        <select class="select" id="selection" name="categorytitle">
+          {{#each categories}}
+            <option value="{{this.title}}">{{this.title}}</option>
+          {{/each}}
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="field is-horizontal">
+    <div class="field-body">
+      <div class="field">
+        <label>Description</label>
+        <textarea class="textarea has-fixed-size" rows="4" name="description">{{place.description}}</textarea>
+      </div>
+    </div>
+  </div>
+  <button class="button is-primary">Update Place</button>
+</form>
+<script>
+  const currentTitle = {{place.categorytitle}};
+  const selection = document.getElementById('selection');
+  for(let i, j = 0; i = select.options[j]; j++) {
+    if(i.value == currentTitle) {
+      selection.selectedIndex = j;
+      break;
+    }
+  }
+</script>

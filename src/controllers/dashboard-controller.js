@@ -33,4 +33,37 @@ export const dashboardController = {
       return h.redirect("/dashboard");
     },
   },
+
+  editCategory: {
+    handler: async function (request, h) {
+      const loggedInUser = request.auth.credentials;
+      const category = await db.categoryStore.getCategoryById(request.params.id);
+      const viewData = {
+        title: "Edit Category",
+        user: loggedInUser,
+        category: category,
+      };
+      return h.view("category-edit", viewData);
+    },
+  },
+
+  updateCategory: {
+    handler: async function (request, h) {
+      const loggedInUser = request.auth.credentials;
+      const category = await db.categoryStore.getCategoryById(request.params.id);
+      let newCategory = {
+        userid: loggedInUser._id,
+        title: request.payload.title,
+      };
+      await db.categoryStore.updateCategory(category, newCategory);
+      newCategory = await db.categoryStore.getCategoryById(request.params.id);
+      for (let i = 0; i < category.places.length; i += 1) {
+        newCategory.places[i].categorytitle = request.payload.title;
+        // eslint-disable-next-line no-await-in-loop
+        await db.placeStore.updatePlace(category.places[i], newCategory.places[i]);
+      }
+      console.log(newCategory);
+      return h.redirect("/dashboard");
+    },
+  },
 };

@@ -42,10 +42,5 @@ export const categoryMemStore = {
 
   async updateCategory(category, updatedCategory) {
     category.title = updatedCategory.title;
-    /*
-    Also need to call placeMemStore.updatePlace()
-    to update place.categorytitle (only)
-    for each place in this category
-    */
   },
 };
