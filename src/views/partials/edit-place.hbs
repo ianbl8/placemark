@@ -7,12 +7,12 @@
         <input class="input" type="text" value="{{place.placename}}" name="placename">
       </div>
       <div class="field">
-        <label>Latitude</label>
-        <input class="input" type="text" value="{{place.latitude}}" name="latitude">
+        <label>Latitude (° +N/-S)</label>
+        <input class="input" type="number" step=".00001" value="{{place.latitude}}" name="latitude">
       </div>
       <div class="field">
-        <label>Longitude</label>
-        <input class="input" type="text" value="{{place.longitude}}" name="longitude">
+        <label>Longitude (° +E/-W)</label>
+        <input class="input" type="number" step=".00001" value="{{place.longitude}}" name="longitude">
       </div>
       <div class="field">
         <label>Category</label><br>
