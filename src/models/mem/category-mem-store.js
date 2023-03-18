@@ -20,20 +20,28 @@ export const categoryMemStore = {
   },
 
   async getCategoryById(id) {
-    const list = categories.find((category) => category._id === id);
-    list.places = await placeMemStore.getPlacesByCategoryId(list._id);
-    return list;
+    let c = categories.find((category) => category._id === id);
+    if (!c) {
+      c = null;
+    } else {
+      c.places = await placeMemStore.getPlacesByCategoryId(c._id);
+    }
+    return c;
   },
 
   async getCategoryByTitle(title) {
-    const list = categories.find((category) => category.title === title);
-    list.places = await placeMemStore.getPlacesByCategoryId(list._id);
-    return list;
+    let c = categories.find((category) => category.title === title);
+    if (!c) {
+      c = null;
+    } else {
+      c.places = await placeMemStore.getPlacesByCategoryId(c._id);
+    }
+    return c;
   },
 
   async deleteCategoryById(id) {
-    const index = categories.findIndex((category) => category._id === id);
-    categories.splice(index, 1);
+    const c = categories.findIndex((category) => category._id === id);
+    if (c !== -1 ) categories.splice(c, 1);
   },
 
   async deleteAllCategories() {

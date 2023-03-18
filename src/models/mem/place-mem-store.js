@@ -23,12 +23,14 @@ export const placeMemStore = {
   },
 
   async getPlaceById(id) {
-    return places.find((place) => place._id === id);
+    let p = places.find((place) => place._id === id);
+    if (!p) p = null;
+    return p;
   },
 
   async deletePlaceById(id) {
-    const index = places.findIndex((place) => place._id === id);
-    places.splice(index, 1);
+    const p = places.findIndex((place) => place._id === id);
+    if (p !== -1 ) places.splice(p, 1);
   },
 
   async deleteAllPlaces() {

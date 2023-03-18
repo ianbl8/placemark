@@ -33,13 +33,15 @@ export const placeJsonStore = {
 
   async getPlaceById(id) {
     await db.read();
-    return db.data.places.find((place) => place._id === id);
+    let p = db.data.places.find((place) => place._id === id);
+    if (p === undefined) p = null;
+    return p;
   },
 
   async deletePlaceById(id) {
     await db.read();
-    const index = db.data.places.findIndex((place) => place._id === id);
-    db.data.places.splice(index, 1);
+    const p = db.data.places.findIndex((place) => place._id === id);
+    if (p !== -1) db.data.places.splice(p, 1);
     await db.write();
   },
 

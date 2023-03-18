@@ -30,22 +30,30 @@ export const categoryJsonStore = {
 
   async getCategoryById(id) {
     await db.read();
-    const list = db.data.categories.find((category) => category._id === id);
-    list.places = await placeJsonStore.getPlacesByCategoryId(list._id);
-    return list;
+    let c = db.data.categories.find((category) => category._id === id);
+    if (c === undefined) {
+      c = null;
+    } else {
+      c.places = await placeJsonStore.getPlacesByCategoryId(c._id);
+    }
+    return c;
   },
 
   async getCategoryByTitle(title) {
     await db.read();
-    const list = db.data.categories.find((category) => category.title === title);
-    list.places = await placeJsonStore.getPlacesByCategoryId(list._id);
-    return list;
+    let c = db.data.categories.find((category) => category.title === title);
+    if (c === undefined) {
+      c = null;
+    } else {
+      c.places = await placeJsonStore.getPlacesByCategoryId(c._id);
+    }
+    return c;
   },
 
   async deleteCategoryById(id) {
     await db.read();
-    const index = db.data.categories.findIndex((category) => category._id === id);
-    db.data.categories.splice(index, 1);
+    const c = db.data.categories.findIndex((category) => category._id === id);
+    if (c !== -1 ) db.data.categories.splice(c, 1);
     await db.write();
   },
 
