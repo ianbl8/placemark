@@ -1,6 +1,7 @@
 import Hapi from "@hapi/hapi";
 import Vision from "@hapi/vision";
 import Cookie from "@hapi/cookie";
+import Joi from "joi";
 import Handlebars from "handlebars";
 import dotenv from "dotenv";
 import path from "path";
@@ -25,6 +26,7 @@ async function init() {
   });
   await server.register(Vision);
   await server.register(Cookie);
+  server.validator(Joi);
 
   server.views({
     engines: {
