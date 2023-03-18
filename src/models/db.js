@@ -8,6 +8,11 @@ import { userJsonStore } from "./json/user-json-store.js";
 import { categoryJsonStore } from "./json/category-json-store.js";
 import { placeJsonStore } from "./json/place-json-store.js";
 
+// MongoStores
+import { userMongoStore } from "./mongo/user-mongo-store.js";
+import { categoryMongoStore } from "./mongo/category-mongo-store.js";
+import { placeMongoStore } from "./mongo/place-mongo-store.js";
+import { connectMongo } from "./mongo/connect.js";
 
 export const db = {
   userStore: null,
@@ -16,6 +21,12 @@ export const db = {
 
   init(storeType) {
     switch (storeType) {
+      case "mongo":
+        this.userStore = userMongoStore;
+        this.categoryStore = categoryMongoStore;
+        this.placeStore = placeMongoStore;
+        connectMongo();
+        break;
       case "json":
         this.userStore = userJsonStore;
         this.categoryStore = categoryJsonStore;
