@@ -62,7 +62,6 @@ export const dashboardController = {
         // eslint-disable-next-line no-await-in-loop
         await db.placeStore.updatePlace(category.places[i], newCategory.places[i]);
       }
-      console.log(newCategory);
       return h.redirect("/dashboard");
     },
   },
