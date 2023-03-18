@@ -7,7 +7,7 @@ import { testOneUser, testMultipleUsers } from "../fixtures.js";
 suite("User model tests", () => {
 
   setup(async () => {
-    db.init("json");
+    db.init("mongo");
     await db.userStore.deleteAllUsers();
     for (let i = 0; i < testMultipleUsers.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop

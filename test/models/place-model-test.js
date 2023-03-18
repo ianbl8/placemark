@@ -2,17 +2,17 @@
 import { assert } from "chai";
 import { assertSubset } from "../test-utils.js";
 import { db } from "../../src/models/db.js";
-import { testOneCategory, testCategoryForPlaces, testOnePlace, testMultiplePlaces } from "../fixtures.js";
+import { testCategoryForPlaces, testOnePlace, testMultiplePlaces } from "../fixtures.js";
 
 suite("Place model tests", () => {
 
   let testCategory = null;
 
   setup(async () => {
-    db.init("json");
+    db.init("mongo");
     await db.categoryStore.deleteAllCategories();
     await db.placeStore.deleteAllPlaces();
-    testCategory = await db.categoryStore.addCategory(testOneCategory);
+    testCategory = await db.categoryStore.addCategory(testCategoryForPlaces);
     for (let i = 0; i < testMultiplePlaces.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
       testMultiplePlaces[i] = await db.placeStore.addPlace(testCategory._id, testMultiplePlaces[i]);
@@ -58,6 +58,10 @@ suite("Place model tests", () => {
     await db.placeStore.deleteAllPlaces();
     returnedPlaces = await db.placeStore.getAllPlaces();
     assert.equal(returnedPlaces.length, 0);
+  });
+
+  teardown(async () => {
+    testCategory = await db.categoryStore.deleteAllCategories();
   });
 
 });

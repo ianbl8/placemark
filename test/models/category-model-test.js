@@ -7,7 +7,7 @@ import { testOneCategory, testMultipleCategories } from "../fixtures.js";
 suite("Category model tests", () => {
 
   setup(async () => {
-    db.init("json");
+    db.init("mongo");
     await db.categoryStore.deleteAllCategories();
     for (let i = 0; i < testMultipleCategories.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
