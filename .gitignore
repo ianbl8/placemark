@@ -1,3 +1,8 @@
+# Json files - to keep template wihtout syncing test data
+categories.json
+places.json
+users.json
+
 # IDE
 .idea
 .vscode
