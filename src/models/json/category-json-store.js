@@ -35,6 +35,13 @@ export const categoryJsonStore = {
     return list;
   },
 
+  async getCategoryByTitle(title) {
+    await db.read();
+    const list = db.data.categories.find((category) => category.title === title);
+    list.places = await placeJsonStore.getPlacesByCategoryId(list._id);
+    return list;
+  },
+
   async deleteCategoryById(id) {
     await db.read();
     const index = db.data.categories.findIndex((category) => category._id === id);
