@@ -1,7 +1,5 @@
 # Json files - to keep template without syncing test data
-src/models/json/categories.json
-src/models/json/places.json
-src/models/json/users.json
+src/models/json/*.json
 
 # IDE
 .idea
