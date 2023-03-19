@@ -4,7 +4,7 @@ export const IdSpec = Joi.alternatives().try(Joi.string(),Joi.object()).descript
 
 export const UserCredentialsSpec = Joi.object().keys({
   email: Joi.string().email().example("helga.beimer@ehrlich-reisen.de").required(),
-  password: Joi.string().example("SecretPassword").required(),
+  password: Joi.string().example("Hansemann").required(),
 })
 .label("UserCredentials");
 
@@ -57,3 +57,9 @@ export const CategorySpecPlus = CategorySpec.keys({
 
 export const CategoryArray = Joi.array().items(CategorySpecPlus).label("CategoryArray");
   
+export const JwtAuth = Joi.object()
+  .keys({
+    success: Joi.boolean().example("true").required(),
+    token: Joi.string().example("xxxxx.yyyyy.zzzzz").required(),
+  })
+  .label("JwtAuth");

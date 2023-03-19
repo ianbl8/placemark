@@ -7,6 +7,11 @@ export const testOneUser = {
   password: "secret",
 };
 
+export const testCredentials = {
+  email: "maggie@simpson.com",
+  password: "secret",
+};
+
 export const testMultipleUsers = [
   {
     firstName: "Homer",

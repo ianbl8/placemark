@@ -3,7 +3,7 @@ import { assert } from "chai";
 import { EventEmitter } from "events";
 import { assertSubset } from "../test-utils.js";
 import { placemarkService } from "./placemark-service.js";
-import { testOneUser, testCategoryForPlaces, testOnePlace, testMultiplePlaces } from "../fixtures.js";
+import { testCredentials, testOneUser, testCategoryForPlaces, testOnePlace, testMultiplePlaces } from "../fixtures.js";
 
 EventEmitter.setMaxListeners(25);
 
@@ -15,12 +15,12 @@ suite("Place API tests", () => {
   setup(async () => {
     placemarkService.clearAuth();
     user = await placemarkService.createUser(testOneUser);
-    await placemarkService.authenticate(testOneUser);
+    await placemarkService.authenticate(testCredentials);
     await placemarkService.deleteAllCategories();
     await placemarkService.deleteAllPlaces();
     await placemarkService.deleteAllUsers();
     user = await placemarkService.createUser(testOneUser);
-    await placemarkService.authenticate(testOneUser);
+    await placemarkService.authenticate(testCredentials);
     testCategoryForPlaces.userid = user._id;
     placesToVisit = await placemarkService.createCategory(testCategoryForPlaces);
   });

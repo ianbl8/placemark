@@ -1,6 +1,6 @@
 import { assert } from "chai";
 import { placemarkService } from "./placemark-service.js";
-import { testOneUser } from "../fixtures.js";
+import { testCredentials, testOneUser } from "../fixtures.js";
 import { decodeToken } from "../../src/api/jwt-utils.js";
 
 suite("Authentication API tests", async () => {
@@ -8,20 +8,20 @@ suite("Authentication API tests", async () => {
   setup(async () => {
     placemarkService.clearAuth();
     await placemarkService.createUser(testOneUser);
-    await placemarkService.authenticate(testOneUser);
+    await placemarkService.authenticate(testCredentials);
     await placemarkService.deleteAllUsers();
   });
 
   test("Authenticate", async () => {
     const returnedUser = await placemarkService.createUser(testOneUser);
-    const response = await placemarkService.authenticate(testOneUser);
+    const response = await placemarkService.authenticate(testCredentials);
     assert(response.success);
     assert.isDefined(response.token);
   });
 
   test("Verify token", async () => {
     const returnedUser = await placemarkService.createUser(testOneUser);
-    const response = await placemarkService.authenticate(testOneUser);
+    const response = await placemarkService.authenticate(testCredentials);
     const userInfo = decodeToken(response.token);
     assert.equal(userInfo.email, returnedUser.email);
     assert.equal(userInfo.userId, returnedUser._id);

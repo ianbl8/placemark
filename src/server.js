@@ -23,6 +23,14 @@ const swaggerOptions = {
     title: "PlaceMark API",
     version: "0.1",
   },
+  securityDefinitions: {
+    jwt: {
+      type: "apiKey",
+      name: "Authorization",
+      in: "header"
+    }
+  },
+  security: [{ jwt: [] }]
 };
 
 const result = dotenv.config();
