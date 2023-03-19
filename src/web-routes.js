@@ -24,4 +24,6 @@ export const webRoutes = [
   { method: "GET", path: "/category/{id}/deleteplace/{placeid}", config: categoryController.deletePlace },
   { method: "GET", path: "/category/{id}/editplace/{placeid}", config: categoryController.editPlace },
   { method: "POST", path: "/category/{id}/updateplace/{placeid}", config: categoryController.updatePlace },
+
+  { method: "GET", path: "/{param*}", handler: { directory: { path: "./public" } }, options: { auth: false } },
 ];
