@@ -4,13 +4,15 @@ import { assertSubset } from "../test-utils.js";
 import { placemarkService } from "./placemark-service.js";
 import { testOneUser, testMultipleUsers } from "../fixtures.js";
 
+const users = new Array(testMultipleUsers.length);
+
 suite("User API tests", () => {
 
   setup(async () => {
     await placemarkService.deleteAllUsers();
     for (let i = 0; i < testMultipleUsers.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
-      testMultipleUsers[i] = await placemarkService.createUser(testMultipleUsers[i]);
+      users[i] = await placemarkService.createUser(testMultipleUsers[i]);
     }
   });
 
@@ -25,8 +27,8 @@ suite("User API tests", () => {
   });
   
   test("Find a user", async () => {
-    const returnedUser = await placemarkService.getUser(testMultipleUsers[0]._id);
-    assert.deepEqual(testMultipleUsers[0], returnedUser);
+    const returnedUser = await placemarkService.getUser(users[0]._id);
+    assert.deepEqual(users[0], returnedUser);
   });
   
   test("Find a user - bad parameters", async () => {
@@ -42,7 +44,7 @@ suite("User API tests", () => {
   test("Find a user - deleted user", async () => {
     await placemarkService.deleteAllUsers();
     try {
-      const returnedUser = await placemarkService.getUser(testMultipleUsers[0]._id);
+      const returnedUser = await placemarkService.getUser(users[0]._id);
       assert.fail("Should not return a response");
     } catch (error) {
       assert(error.response.data.message === "No User with this id");

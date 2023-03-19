@@ -2,6 +2,7 @@ import Hapi from "@hapi/hapi";
 import Vision from "@hapi/vision";
 import Inert from "@hapi/inert";
 import Cookie from "@hapi/cookie";
+import HapiSwagger from "hapi-swagger";
 import Joi from "joi";
 import Handlebars from "handlebars";
 import dotenv from "dotenv";
@@ -14,6 +15,13 @@ import { db } from "./models/db.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+const swaggerOptions = {
+  info: {
+    title: "PlaceMark API",
+    version: "0.1",
+  },
+};
 
 const result = dotenv.config();
 if (result.error) {
@@ -30,6 +38,15 @@ async function init() {
   await server.register(Inert);
   await server.register(Cookie);
   server.validator(Joi);
+
+  await server.register([
+    Inert,
+    Vision,
+    {
+      plugin: HapiSwagger,
+      options: swaggerOptions,
+    },
+  ]);
 
   server.views({
     engines: {

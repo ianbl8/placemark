@@ -1,5 +1,7 @@
 import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
+import { IdSpec, PlaceSpec, PlaceSpecPlus, PlaceArray } from "../models/joi-schemas.js";
+import { validationError } from "./logger.js";
 
 export const placeApi = {
   create: {
@@ -15,6 +17,11 @@ export const placeApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+    tags: ["api"],
+    description: "Create a place",
+    notes: "Creates a new place and returns its saved details.",
+    validate: { payload: PlaceSpec },
+    response: { schema: PlaceSpecPlus, failAction: validationError },
   },
 
   find: {
@@ -27,6 +34,10 @@ export const placeApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+    tags: ["api"],
+    description: "Get all place details",
+    notes: "Returns place details (name, location, description etc) for all places",
+    response: { schema: PlaceArray, failAction: validationError },
   },
 
   findOne: {
@@ -42,6 +53,11 @@ export const placeApi = {
         return Boom.serverUnavailable("No place with this id");
       }
     },
+    tags: ["api"],
+    description: "Get a place's details",
+    notes: "Returns place details (name, location, description etc) for one specified place",
+    validate: { params: { id: IdSpec }, failAction: validationError },
+    response: { schema: PlaceSpecPlus, failAction: validationError },
   },
 
   deleteOne: {
@@ -58,6 +74,10 @@ export const placeApi = {
         return Boom.serverUnavailable("No Place with this id");
       }
     },
+    tags: ["api"],
+    description: "Delete a place",
+    notes: "Deletes data stored for a place",
+    validate: { params: { id: IdSpec }, failAction: validationError },
   },
 
   deleteAll: {
@@ -70,5 +90,8 @@ export const placeApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+    tags: ["api"],
+    description: "Delete all places",
+    notes: "Deletes all place data stored",
   },
 };
