@@ -9,11 +9,16 @@ const users = new Array(testMultipleUsers.length);
 suite("User API tests", () => {
 
   setup(async () => {
+    placemarkService.clearAuth();
+    await placemarkService.createUser(testOneUser);
+    await placemarkService.authenticate(testOneUser);
     await placemarkService.deleteAllUsers();
     for (let i = 0; i < testMultipleUsers.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
       users[i] = await placemarkService.createUser(testMultipleUsers[i]);
     }
+    await placemarkService.createUser(testOneUser);
+    await placemarkService.authenticate(testOneUser);
   });
 
   teardown(async () => {
@@ -43,6 +48,8 @@ suite("User API tests", () => {
 
   test("Find a user - deleted user", async () => {
     await placemarkService.deleteAllUsers();
+    await placemarkService.createUser(testOneUser);
+    await placemarkService.authenticate(testOneUser);
     try {
       const returnedUser = await placemarkService.getUser(users[0]._id);
       assert.fail("Should not return a response");
@@ -54,10 +61,12 @@ suite("User API tests", () => {
 
   test("Delete all users", async () => {
     let returnedUsers = await placemarkService.getAllUsers();
-    assert.equal(returnedUsers.length, 3);
+    assert.equal(returnedUsers.length, 4);
     await placemarkService.deleteAllUsers();
+    await placemarkService.createUser(testOneUser);
+    await placemarkService.authenticate(testOneUser);
     returnedUsers = await placemarkService.getAllUsers();
-    assert.equal(returnedUsers.length, 0);
+    assert.equal(returnedUsers.length, 1);
   });
 
 });

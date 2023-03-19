@@ -12,9 +12,13 @@ suite("Category API tests", () => {
   let user = null;
 
   setup(async () => {
+    placemarkService.clearAuth();
+    user = await placemarkService.createUser(testOneUser);
+    await placemarkService.authenticate(testOneUser);
     await placemarkService.deleteAllCategories();
     await placemarkService.deleteAllUsers();
     user = await placemarkService.createUser(testOneUser);
+    await placemarkService.authenticate(testOneUser);
     testOneCategory.userid = user._id;
   });
 

@@ -13,10 +13,14 @@ suite("Place API tests", () => {
   let placesToVisit = null;
 
   setup(async () => {
-    await placemarkService.deleteAllCategories();
-    await placemarkService.deleteAllUsers();
-    await placemarkService.deleteAllPlaces();
+    placemarkService.clearAuth();
     user = await placemarkService.createUser(testOneUser);
+    await placemarkService.authenticate(testOneUser);
+    await placemarkService.deleteAllCategories();
+    await placemarkService.deleteAllPlaces();
+    await placemarkService.deleteAllUsers();
+    user = await placemarkService.createUser(testOneUser);
+    await placemarkService.authenticate(testOneUser);
     testCategoryForPlaces.userid = user._id;
     placesToVisit = await placemarkService.createCategory(testCategoryForPlaces);
   });

@@ -5,7 +5,9 @@ import { validationError } from "./logger.js";
 
 export const placeApi = {
   create: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const place = await db.placeStore.addPlace(request.params.id, request.payload);
@@ -25,7 +27,9 @@ export const placeApi = {
   },
 
   find: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const places = await db.placeStore.getAllPlaces();
@@ -41,7 +45,9 @@ export const placeApi = {
   },
 
   findOne: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const place = await db.placeStore.getPlaceById(request.params.id);
@@ -61,7 +67,9 @@ export const placeApi = {
   },
 
   deleteOne: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const place = await db.placeStore.getPlaceById(request.params.id);
@@ -81,7 +89,9 @@ export const placeApi = {
   },
 
   deleteAll: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         await db.placeStore.deleteAllPlaces();

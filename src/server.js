@@ -3,11 +3,13 @@ import Vision from "@hapi/vision";
 import Inert from "@hapi/inert";
 import Cookie from "@hapi/cookie";
 import HapiSwagger from "hapi-swagger";
+import jwt from "hapi-auth-jwt2";
 import Joi from "joi";
 import Handlebars from "handlebars";
 import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
+import { validate } from "./api/jwt-utils.js";
 import { webRoutes } from "./web-routes.js";
 import { apiRoutes } from "./api-routes.js";
 import { accountController } from "./controllers/account-controller.js";
@@ -34,11 +36,11 @@ async function init() {
     port: 3000,
     host: "localhost",
   });
+
   await server.register(Vision);
   await server.register(Inert);
   await server.register(Cookie);
-  server.validator(Joi);
-
+  await server.register(jwt);
   await server.register([
     Inert,
     Vision,
@@ -60,6 +62,8 @@ async function init() {
     isCached: false,
   });
 
+  server.validator(Joi);
+
   server.auth.strategy("session", "cookie", {
     cookie: {
       name: process.env.COOKIE_NAME,
@@ -68,6 +72,11 @@ async function init() {
     },
     redirectTo: "/",
     validate: accountController.validate,
+  });
+  server.auth.strategy("jwt", "jwt", {
+    key: process.env.COOKIE_PASSWORD,
+    validate: validate,
+    verifyOptions: { algorithms: ["HS256"] }
   });
   server.auth.default("session");
 

@@ -1,5 +1,7 @@
+/* eslint-disable dot-notation */
+/* eslint-disable prefer-template */
 import axios from "axios";
-import { serviceUrl } from "../fixtures.js";
+import { serviceUrl, testOneUser } from "../fixtures.js";
 
 export const placemarkService = {
   placemarkUrl: serviceUrl,
@@ -72,6 +74,16 @@ export const placemarkService = {
   async deleteAllPlaces() {
     const response = await axios.delete(`${this.placemarkUrl}/api/places`);
     return response.data;
+  },
+
+  async authenticate(user) {
+    const response = await axios.post(`${this.placemarkUrl}/api/users/authenticate`, user);
+    axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.token;
+    return response.data;
+  },
+
+  async clearAuth() {
+    axios.defaults.headers.common["Authorization"] = "";
   },
 
 };
